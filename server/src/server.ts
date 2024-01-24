@@ -1,6 +1,7 @@
 import express, {Express} from 'express';
 import cors from 'cors'
 import morgan from 'morgan'
+import errorHandler from './middlewares/error.middleware';
 
 const APP_ORIGIN = process.env.APP_ORIGIN || 'http://localhost:5173';
 const app: Express = express();
@@ -11,5 +12,6 @@ app.use(cors(corsOptions));
 app.use(morgan("dev"))
 app.use(express.json());
 app.use(express.urlencoded({ extended: false })); // Middleware for parsing form data
+app.use(errorHandler)
 
 export default app;

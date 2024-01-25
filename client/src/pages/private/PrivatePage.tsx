@@ -1,11 +1,11 @@
-import NavbarSite from "../../components/router/navbar/Navbar"
+import NavbarSite from '../../components/navbar/Navbar';
 
 const PrivatePage = () => {
-  return (
-    <>
-    <NavbarSite />
-    </>
-  )
-}
+	return (
+		<>
+			<NavbarSite />
+		</>
+	);
+};
 
-export default PrivatePage
+export default PrivatePage;

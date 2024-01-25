@@ -1,12 +1,11 @@
 import NavbarSite from "../../components/router/navbar/Navbar"
 
-const LandingPage = () => {
+const PrivatePage = () => {
   return (
     <>
     <NavbarSite />
-    hola landing
     </>
   )
 }
 
-export default LandingPage
+export default PrivatePage

@@ -1,5 +1,7 @@
 import { Auth0Provider } from "@auth0/auth0-react"
 import RouterPaths from "./router/RouterPaths.routes"
+import { Provider } from "react-redux";
+import store from "./config/redux/store";
 
 function App() {
   const {VITE_AUTH0_DOMAIN: domain, VITE_AUTH0_CLIENT_ID: clientId} = import.meta.env;
@@ -12,7 +14,9 @@ function App() {
 				authorizationParams={{
 					redirect_uri: redirectUri,
 				}}>
+          <Provider store={store}>
 				<RouterPaths />
+        </Provider>
 			</Auth0Provider>
     </>
   )

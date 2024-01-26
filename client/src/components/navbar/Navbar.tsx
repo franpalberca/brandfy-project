@@ -4,7 +4,6 @@ import Navbar from 'react-bootstrap/Navbar';
 
 const NavbarSite = () => {
 	const {loginWithRedirect, logout, user, isLoading} = useAuth0();
-    console.log(user)
 
     if (isLoading) {
 		return <div>Loading...</div>;

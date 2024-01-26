@@ -4,7 +4,6 @@ import { HOME } from '../../config/routes/paths';
 
 export const PrivateRoute = () => {
     const {  isAuthenticated, user } = useAuth0();
-    console.log(user)
 
     if (!isAuthenticated) {
         return <div>Loading ...</div>;

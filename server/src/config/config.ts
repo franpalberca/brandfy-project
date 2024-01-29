@@ -1,8 +1,6 @@
 import dotenv from 'dotenv';
-// import AWS from 'aws-sdk'
 
 dotenv.config();
-// const s3 = new AWS.S3();
 
 type TConfig = {
 	[key: string]: EnvironmentConfig;

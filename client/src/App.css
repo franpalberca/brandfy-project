@@ -1,0 +1,11 @@
+@font-face {
+    font-family: 'Helvetica Neue LT';
+    src: url('/ruta/a/helvetica-neue-lt.woff2') format('woff2'),
+         url('/ruta/a/helvetica-neue-lt.woff') format('woff');
+    font-weight: bold; 
+  }
+  
+  body {
+    font-family: 'Helvetica Neue LT', sans-serif;
+    font-weight: bold; 
+  }

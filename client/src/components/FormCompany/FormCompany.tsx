@@ -29,14 +29,14 @@ const FormCompany = ({setCompanyName, setFile}: FormCompanyProps) => {
 	return (
 		<Form>
 			<Form.Group controlId="companyName">
-				<Form.Label>Nombre de tu empresa:</Form.Label>
-				<Form.Control type="text" placeholder="Ingresa el nombre de la empresa" onChange={handleNameChange} />
+				<Form.Label>Company Name:</Form.Label>
+				<Form.Control name='companyName' type="text" placeholder="Introduce the Company Name" onChange={handleNameChange} />
 			</Form.Group>
 			<Form.Group controlId="file">
-				<Form.Label>Cargar archivo:</Form.Label>
-				<Form.Control type="file" onChange={handleFileChange} />
+				<Form.Label>Load File:</Form.Label>
+				<Form.Control name='companyLogo' type="file" onChange={handleFileChange} />
 			</Form.Group>
-			<Button onClick={handleSubmit}>Enviar</Button>
+			<Button onClick={handleSubmit}>Send</Button>
 		</Form>
 	);
 };

@@ -6,13 +6,13 @@ const Footer = () => {
   return (
     <FooterStyles>
         <a href='https://www.figma.com/file/9AboVKzQW8c5lVUiUF5ww4/Brandfy-Project?type=design&node-id=0-1&mode=design&t=CQsA6GfllSSo693f-0' target='_blank' rel='noopener noreferrer'>
-    <FontAwesomeIcon style={{ fontSize: '50px' }} icon={faFigma} />
+    <FontAwesomeIcon style={{ fontSize: '50px', color: 'black' }} icon={faFigma} />
     </a>
     <a href="https://www.linkedin.com/in/fran-p-alberca/" target="_blank" rel="noopener noreferrer">
-    <FontAwesomeIcon style={{ fontSize: '50px' }} icon={faLinkedin} />
+    <FontAwesomeIcon style={{ fontSize: '50px', color: 'black' }} icon={faLinkedin} />
     </a>
     <a href="https://github.com/franpalberca" target="_blank" rel="noopener noreferrer">
-    <FontAwesomeIcon style={{ fontSize: '50px' }} icon={faGithub} />
+    <FontAwesomeIcon style={{ fontSize: '50px', color: 'black' }} icon={faGithub} />
     </a>
     </FooterStyles>
   )

@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import {Button} from 'react-bootstrap';
+import { createData } from '../../api/data.fetch';
 
 interface LogoInfoInterface {
 	rotation: number;
@@ -52,6 +53,20 @@ const Board = ({companyName, file}: {companyName: string; file: File | null}) =>
 	const handleTextChange = (key: keyof TextInfoInterface, value: any) => {
 		setTextInfo({...textInfo, [key]: value});
 	};
+
+	const handleSave = async () => {
+        if (!file) return; 
+
+        const formData = new FormData();
+        formData.append('companyLogo', file); 
+
+        try {
+            const data = await createData(formData);
+            console.log('Logo guardado:', data);
+        } catch (error) {
+            console.error('Error al guardar el logo:', error);
+        }
+    };
 
 	return (
 		<BoardStyles>
@@ -133,6 +148,7 @@ const Board = ({companyName, file}: {companyName: string; file: File | null}) =>
 					)}
 				</div>
 			</div>
+					<Button onClick={handleSave}>Save</Button>
 		</BoardStyles>
 	);
 };

@@ -147,11 +147,12 @@ export default connect(mapStateToProps)(Board);
 const BoardStyles = styled.div`
 	& .whole_site {
 		display: grid;
-		grid-template-columns: 70% 30%;
+		grid-template-columns: 120vh 75vh;
 		grid-template-rows: 1fr;
-		grid-column-gap: 0px;
-		grid-row-gap: 0px;
+		grid-column-gap: 35vh;
 		height: 76vh;
+        position: relative;
+        left: -15vh;
 	}
 	& .board {
 		grid-area: 1 / 1 / 2 / 2;
@@ -167,18 +168,23 @@ const BoardStyles = styled.div`
 	}
 	& .sidebar {
 		grid-area: 1 / 2 / 2 / 3;
-		background-color: lightblue;
+		background-color: black;
+        color: white;
+        width: 90%;
 	}
 	& .company_image {
 		width: 40px;
 		cursor: pointer;
-        position: relative;
-        left: -27vh;
+        display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 	& .company_name {
 		cursor: pointer;
-        position: relative;
-        left: -27vh;
+        
+        display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 `;
 
@@ -211,6 +217,8 @@ const SliderWithInput = ({value, onChange}: {value: number; onChange: (value: nu
 const SliderContainer = styled.div`
 	display: flex;
 	align-items: center;
+    width: 95%;
+    margin-top: 3vh;
 `;
 
 const InputBox = styled.div`
@@ -224,6 +232,7 @@ const InputBox = styled.div`
 	}
 
 	button {
+        margin-top: 2px;
 		width: 20px;
 		height: 20px;
 	}

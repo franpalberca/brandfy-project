@@ -1,8 +1,8 @@
 import dotenv from 'dotenv';
-import AWS from 'aws-sdk'
+// import AWS from 'aws-sdk'
 
 dotenv.config();
-const s3 = new AWS.S3();
+// const s3 = new AWS.S3();
 
 type TConfig = {
 	[key: string]: EnvironmentConfig;
@@ -11,6 +11,7 @@ type TConfig = {
 type EnvironmentConfig = {
 	app: AppConfig;
 	auth0: Auth0Config;
+	db: MongoDBConfig;
 	aws: AWSConfig;
 };
 
@@ -23,6 +24,8 @@ type Auth0Config = {
 	audience: string | undefined;
 	issuer: string | undefined;
 };
+
+type MongoDBConfig = { URI: string };
 
 type AWSConfig = {
 	AWS_BUCKET_NAME: string | undefined;
@@ -49,6 +52,9 @@ const CONFIG: TConfig = {
 			audience: process.env.AUTH0_AUDIENCE,
 			issuer: process.env.AUTH0_ISSUER,
 		},
+		db: {
+            URI: process.env.MONGO_DB_URI || ''
+        },
 		aws: {
 			AWS_BUCKET_NAME: process.env.AWS_BUCKET_NAME,
 			AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
@@ -58,13 +64,16 @@ const CONFIG: TConfig = {
 	},
 	production: {
 		app: {
-			PORT: process.env.PORT || 8081,
+			PORT: process.env.PORT || 8082,
 		},
 		auth0: {
 			client_origin: process.env.APP_ORIGIN,
 			audience: process.env.AUTH0_AUDIENCE,
 			issuer: process.env.AUTH0_ISSUER,
 		},
+		db: {
+            URI: process.env.MONGO_DB_URI || ''
+        },
 		aws: {
 			AWS_BUCKET_NAME: process.env.AWS_BUCKET_NAME,
 			AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,

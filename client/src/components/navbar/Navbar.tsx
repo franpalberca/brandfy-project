@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import {createUser} from '../../api/user.fetch';
 
 const NavbarSite = () => {
-	const {loginWithRedirect, logout, user, isLoading, getAccessTokenSilently} = useAuth0();
+	const { loginWithPopup, logout, user, isLoading, getAccessTokenSilently} = useAuth0();
 
 	if (isLoading) {
 		return <div>Loading...</div>;
@@ -37,7 +37,7 @@ const NavbarSite = () => {
 				) : (
 					<div className="navbar_data">
 						<p className="log_text">Please, sign in</p>
-						<Button className="log_button" onClick={() => loginWithRedirect()}>
+						<Button className="log_button" onClick={() => loginWithPopup()}>
 							Login
 						</Button>
 					</div>

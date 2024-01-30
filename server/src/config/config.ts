@@ -54,10 +54,10 @@ const CONFIG: TConfig = {
             URI: process.env.MONGO_DB_URI || ''
         },
 		aws: {
-			AWS_BUCKET_NAME: process.env.AWS_BUCKET_NAME,
-			AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
-			AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
-			AWS_REGION: process.env.AWS_REGION,
+			AWS_BUCKET_NAME: process.env.BUCKET_NAME,
+			AWS_ACCESS_KEY_ID: process.env.ACCESS_KEY_ID,
+			AWS_SECRET_ACCESS_KEY: process.env.SECRET_ACCESS_KEY,
+			AWS_REGION: process.env.REGION,
 		},
 	},
 	production: {
@@ -73,10 +73,10 @@ const CONFIG: TConfig = {
             URI: process.env.MONGO_DB_URI || ''
         },
 		aws: {
-			AWS_BUCKET_NAME: process.env.AWS_BUCKET_NAME,
-			AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
-			AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
-			AWS_REGION: process.env.AWS_REGION,
+			AWS_BUCKET_NAME: process.env.BUCKET_NAME,
+			AWS_ACCESS_KEY_ID: process.env.ACCESS_KEY_ID,
+			AWS_SECRET_ACCESS_KEY: process.env.SECRET_ACCESS_KEY,
+			AWS_REGION: process.env.REGION,
 		},
 	},
 };

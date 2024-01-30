@@ -5,8 +5,7 @@ import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import {Button} from 'react-bootstrap';
 import { createData } from '../../api/data.fetch';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons'
+
 
 interface LogoInfoInterface {
 	rotation: number;
@@ -61,7 +60,16 @@ const Board = ({companyName, file}: {companyName: string; file: File | null}) =>
 
         const formData = new FormData();
         formData.append('companyLogo', file); 
-
+		formData.append('rotation', logoInfo.rotation.toString());
+		formData.append('scale', logoInfo.scale.toString());
+		formData.append('verticalPosition', logoInfo.verticalPosition.toString());
+		formData.append('horizontalPosition', logoInfo.horizontalPosition.toString());
+		formData.append('textTransform', textInfo.textTransform);
+		formData.append('fontWeight', textInfo.fontWeight.toString());
+		formData.append('letterSpacing', textInfo.letterSpacing.toString());
+		formData.append('alignment', textInfo.alignment);
+		formData.append('companyName', companyName)
+		
         try {
             const data = await createData(formData);
             console.log('Logo guardado:', data);

@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import { FORMPAGE, HOME, LOGOPAGE, PRIVATE, PRIVATELOGOPAGE, USERPAGE } from "../config/routes/paths"
+import { FORMPAGE, HOME, LOGOPAGE, PRIVATE, USERPAGE } from "../config/routes/paths"
 import { PublicRoute } from "../components/router/PublicRoute"
 import { PrivateRoute } from "../components/router/PrivateRoute"
 import LandingPage from "../pages/public/LandingPage"
@@ -19,7 +19,6 @@ const RouterPaths = () => {
             </Route>
             <Route path={PRIVATE} element={<PrivateRoute />}>
                 <Route path={USERPAGE} element={<UserPage />} />
-                <Route path={PRIVATELOGOPAGE} element={<LogoPage />} />
             </Route>
         </Routes>
     </BrowserRouter>

@@ -6,7 +6,7 @@ import './App.css'
 
 function App() {
   const {VITE_AUTH0_DOMAIN: domain, VITE_AUTH0_CLIENT_ID: clientId, VITE_AUTH0_AUDIENCE: audience, VITE_AUTH0_SCOPE: scope} = import.meta.env;
-  const redirectUri = 'https://brandfy-project-zsxs.vercel.app/private/logopage';
+  const redirectUri = 'https://brandfy-project-zsxs.vercel.app/logopage';
   return (
     <>
      <Auth0Provider

@@ -30,13 +30,13 @@ const FormCompany = ({setCompanyName, setFile}: FormCompanyProps) => {
 		<Form>
 			<Form.Group controlId="companyName">
 				<Form.Label>Company Name:</Form.Label>
-				<Form.Control name='companyName' type="text" placeholder="Introduce the Company Name" onChange={handleNameChange} />
+				<Form.Control name='companyName' type="text" placeholder="Insert your Company Name" onChange={handleNameChange} />
 			</Form.Group>
 			<Form.Group controlId="file">
 				<Form.Label>Load File:</Form.Label>
 				<Form.Control name='companyLogo' type="file" onChange={handleFileChange} />
 			</Form.Group>
-			<Button onClick={handleSubmit}>Send</Button>
+			<Button style={{backgroundColor: 'black', border: 'black'}}onClick={handleSubmit}>Send</Button>
 		</Form>
 	);
 };

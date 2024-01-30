@@ -5,6 +5,8 @@ import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import {Button} from 'react-bootstrap';
 import { createData } from '../../api/data.fetch';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons'
 
 interface LogoInfoInterface {
 	rotation: number;
@@ -89,13 +91,13 @@ const Board = ({companyName, file}: {companyName: string; file: File | null}) =>
 									<div>
 										<label>Case:</label>
 										<ButtonGroup>
-											<Button variant={textInfo.textTransform === 'none' ? 'primary' : 'outline-primary'} onClick={() => handleTextChange('textTransform', 'none')}>
+											<Button style={{backgroundColor: 'black', border: 'black', color: 'white'}} variant={textInfo.textTransform === 'none' ? 'primary' : 'outline-primary'} onClick={() => handleTextChange('textTransform', 'none')}>
 												Normal
 											</Button>
-											<Button variant={textInfo.textTransform === 'uppercase' ? 'primary' : 'outline-primary'} onClick={() => handleTextChange('textTransform', 'uppercase')}>
+											<Button style={{backgroundColor: 'black', border: 'black', color: 'white'}} variant={textInfo.textTransform === 'uppercase' ? 'primary' : 'outline-primary'} onClick={() => handleTextChange('textTransform', 'uppercase')}>
 												UPPERCASE
 											</Button>
-											<Button variant={textInfo.textTransform === 'lowercase' ? 'primary' : 'outline-primary'} onClick={() => handleTextChange('textTransform', 'lowercase')}>
+											<Button style={{backgroundColor: 'black', border: 'black', color: 'white'}} variant={textInfo.textTransform === 'lowercase' ? 'primary' : 'outline-primary'} onClick={() => handleTextChange('textTransform', 'lowercase')}>
 												lowercase
 											</Button>
 										</ButtonGroup>
@@ -111,13 +113,13 @@ const Board = ({companyName, file}: {companyName: string; file: File | null}) =>
 									<div>
 										<label>Alignment:</label>
 										<ButtonGroup>
-											<Button variant={textInfo.alignment === 'left' ? 'primary' : 'outline-primary'} onClick={() => handleTextChange('alignment', 'left')}>
+											<Button style={{backgroundColor: 'black', border: 'black', color: 'white'}} variant={textInfo.alignment === 'left' ? 'primary' : 'outline-primary'} onClick={() => handleTextChange('alignment', 'left')}>
 												Left
 											</Button>
-											<Button variant={textInfo.alignment === 'center' ? 'primary' : 'outline-primary'} onClick={() => handleTextChange('alignment', 'center')}>
+											<Button style={{backgroundColor: 'black', border: 'black', color: 'white'}} variant={textInfo.alignment === 'center' ? 'primary' : 'outline-primary'} onClick={() => handleTextChange('alignment', 'center')}>
 												Center
 											</Button>
-											<Button variant={textInfo.alignment === 'right' ? 'primary' : 'outline-primary'} onClick={() => handleTextChange('alignment', 'right')}>
+											<Button style={{backgroundColor: 'black', border: 'black', color: 'white'}} variant={textInfo.alignment === 'right' ? 'primary' : 'outline-primary'} onClick={() => handleTextChange('alignment', 'right')}>
 												Right
 											</Button>
 										</ButtonGroup>
@@ -147,8 +149,10 @@ const Board = ({companyName, file}: {companyName: string; file: File | null}) =>
 						</ControlsContainer>
 					)}
 				</div>
+					<ButtonContainer>
+					<Button className='button_save' onClick={handleSave}>Save</Button>
+					</ButtonContainer>
 			</div>
-					<Button onClick={handleSave}>Save</Button>
 		</BoardStyles>
 	);
 };
@@ -163,10 +167,10 @@ export default connect(mapStateToProps)(Board);
 const BoardStyles = styled.div`
 	& .whole_site {
 		display: grid;
-		grid-template-columns: 120vh 75vh;
+		grid-template-columns: 120vh 75vh 5vh;
 		grid-template-rows: 1fr;
-		grid-column-gap: 35vh;
-		height: 76vh;
+		grid-column-gap: 20vh;
+		height: 73vh;
         position: relative;
         left: -15vh;
 	}
@@ -184,8 +188,8 @@ const BoardStyles = styled.div`
 	}
 	& .sidebar {
 		grid-area: 1 / 2 / 2 / 3;
-		background-color: black;
-        color: white;
+		background-color: grey;
+        color: black;
         width: 90%;
 	}
 	& .company_image {
@@ -215,16 +219,25 @@ const ControlsContainer = styled.div`
 	margin-left: 20px;
 `;
 
+const ButtonContainer = styled.div`
+grid-area: 1 / 3 / 2 / 4;
+    display: flex;
+    align-items: center;
+    margin-top: -65vh;
+
+	& .button_save{
+		margin-left: -15vh;
+		background-color: black;
+		border: black;
+	}
+	`
+
 const SliderWithInput = ({value, onChange}: {value: number; onChange: (value: number) => void}) => {
 	return (
 		<SliderContainer>
 			<Slider value={value} min={0} max={100} onChange={onChange} />
 			<InputBox>
 				<input type="number" value={value} onChange={(e) => onChange(Number(e.target.value))} />
-				<div>
-					<Button onClick={() => onChange(value + 1)}>+</Button>
-					<Button onClick={() => onChange(value - 1)}>-</Button>
-				</div>
 			</InputBox>
 		</SliderContainer>
 	);
@@ -234,7 +247,7 @@ const SliderContainer = styled.div`
 	display: flex;
 	align-items: center;
     width: 95%;
-    margin-top: 3vh;
+    margin-top: 1vh;
 `;
 
 const InputBox = styled.div`
@@ -246,13 +259,7 @@ const InputBox = styled.div`
 		width: 50px;
 		margin-right: 5px;
 	}
-
-	button {
-        margin-top: 2px;
-		width: 20px;
-		height: 20px;
-	}
-`;
+	`;
 
 const ButtonGroup = styled.div`
 	display: flex;

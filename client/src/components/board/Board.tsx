@@ -5,6 +5,7 @@ import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import {Button} from 'react-bootstrap';
 import {createData} from '../../api/data.fetch';
+import {useAuth0} from '@auth0/auth0-react'
 
 interface LogoInfoInterface {
 	rotation: number;
@@ -47,11 +48,8 @@ const Board = ({companyName, file}: {companyName: string; file: File | null}) =>
 	};
 
 	const handleSliderChange = (key: keyof LogoInfoInterface, value: number | number[]) => {
-		if (typeof value === 'number') {
-			setLogoInfo({...logoInfo, [key]: value});
-		} else if (Array.isArray(value) && value.length > 0) {
-			setLogoInfo({...logoInfo, [key]: value[0]});
-		}
+		const numericValue = Array.isArray(value) ? value[0] : value;
+		setLogoInfo({...logoInfo, [key]: numericValue});
 	};
 
 	const handleTextChange = (key: keyof TextInfoInterface, value: any) => {
@@ -80,6 +78,8 @@ const Board = ({companyName, file}: {companyName: string; file: File | null}) =>
 			console.error('Error al guardar el logo:', error);
 		}
 	};
+
+	const {user} = useAuth0();
 
 	return (
 		<BoardStyles>
@@ -178,11 +178,18 @@ const Board = ({companyName, file}: {companyName: string; file: File | null}) =>
 						</ControlsContainer>
 					)}
 				</div>
-				<ButtonContainer>
+				{ user ? (
+					<ButtonContainer>
 					<Button className="button_save" onClick={handleSave}>
 						Save
 					</Button>
 				</ButtonContainer>
+				) : (
+					<ButtonContainer>
+				<p className='sign_in_text'>Sign in to save</p>
+				</ButtonContainer>
+				)
+			}
 			</div>
 		</BoardStyles>
 	);
@@ -261,9 +268,12 @@ const ButtonContainer = styled.div`
 		background-color: black;
 		border: black;
 	}
+	& .sign_in_text{
+		margin-left: -15vh;
+	}
 `;
 
-const SliderWithInput = ({value, onChange}: {value: number; onChange: (value: number) => void}) => {
+const SliderWithInput = ({value, onChange}: {value: number; onChange: (value: number | number[]) => void}) => {
 	return (
 		<SliderContainer>
 			<Slider value={value} min={0} max={100} onChange={onChange} />

@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 import Footer from '../../components/footer/Footer';
-import NavbarSite from '../../components/navbar/Navbar';
+import LandingComponent from '../../components/landing/LandingComponent';
 
 const LandingPage = () => {
 	return (
 		<LandingPageStyles>
-			<NavbarSite />
-			hola landing
+			<LandingComponent />
             <Footer />
 		</LandingPageStyles>
 	);

@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {setCompanyName, setFile} from '../../config/redux/actions';
 import { useNavigate } from 'react-router-dom';
 import { LOGOPAGE } from '../../config/routes/paths';
+import styled from 'styled-components'
 
 interface FormCompanyProps {
 	setCompanyName: (name: string) => void;
@@ -27,17 +28,19 @@ const FormCompany = ({setCompanyName, setFile}: FormCompanyProps) => {
 	};
 
 	return (
-		<Form>
+		<FormStyles>
+		<Form className='form_global'>
 			<Form.Group controlId="companyName">
 				<Form.Label>Company Name:</Form.Label>
 				<Form.Control name='companyName' type="text" placeholder="Insert your Company Name" onChange={handleNameChange} />
 			</Form.Group>
-			<Form.Group controlId="file">
+			<Form.Group className='second_group_form'controlId="file">
 				<Form.Label>Load File:</Form.Label>
 				<Form.Control name='companyLogo' type="file" onChange={handleFileChange} />
 			</Form.Group>
-			<Button style={{backgroundColor: 'black', border: 'black'}}onClick={handleSubmit}>Send</Button>
+			<Button className='form_button' onClick={handleSubmit}>Send</Button>
 		</Form>
+		</FormStyles>
 	);
 };
 
@@ -47,3 +50,22 @@ const mapDispatchToProps = {
 };
 
 export default connect(null, mapDispatchToProps)(FormCompany);
+
+const FormStyles = styled.div`
+display: flex;
+align-items: center;
+justify-content: center;
+margin-top: 25vh;
+& .form_global{
+	width: 70vh;
+}
+& .second_group_form{
+	margin-top:3vh;
+}
+& .form_button{
+	background-color: black;
+	border: black;
+	margin-top: 3vh;
+	margin-left: 37%;
+}
+`

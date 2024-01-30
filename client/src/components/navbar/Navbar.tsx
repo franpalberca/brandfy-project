@@ -7,6 +7,7 @@ import {createUser} from '../../api/user.fetch';
 
 const NavbarSite = () => {
 	const {loginWithRedirect, logout, user, isLoading, getAccessTokenSilently} = useAuth0();
+
 	if (isLoading) {
 		return <div>Loading...</div>;
 	}
@@ -16,7 +17,7 @@ const NavbarSite = () => {
 			const bodyUser = {
 				name: user.name || '',
 				email: user.email || '',
-				picture: user.picture|| '',
+				picture: user.picture || '',
 			};
 			createUser(bodyUser, getAccessTokenSilently);
 		}

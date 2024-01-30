@@ -1,21 +1,19 @@
 import styled from 'styled-components';
 import Footer from '../../components/footer/Footer';
-import NavbarSite from '../../components/navbar/Navbar';
 import FormCompany from '../../components/FormCompany/FormCompany';
 
-const PrivatePage = () => {
+const FormPage = () => {
 	return (
-		<PrivatePageStyles>
-			<NavbarSite />
+		<FormPageStyles>
 			<FormCompany />
             <Footer />
-		</PrivatePageStyles>
+		</FormPageStyles>
 	);
 };
 
-export default PrivatePage;
+export default FormPage;
 
-const PrivatePageStyles = styled.div`
+const FormPageStyles = styled.div`
 width: 100%;
 height: 100%;
 `

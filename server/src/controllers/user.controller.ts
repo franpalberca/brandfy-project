@@ -3,16 +3,15 @@ import {prisma} from '../db/clientPrisma';
 
 export const createUser = async (req: Request, res: Response) => {
 	const {email, name, picture} = req.body;
-
+	console.log(req.body);
 	try {
-		// Check if all required fields are provided
 		if (!name || !email) {
 			return res.status(400).send({
 				status: 'error',
 				error: 'Name and email are required fields.',
 			});
 		}
-		// Check if the email already exists in the database
+
 		const emailExist = await prisma.user.findUnique({
 			where: {userEmail: email},
 			include: {
@@ -20,10 +19,16 @@ export const createUser = async (req: Request, res: Response) => {
 					select: {
 						companyName: true,
 						companyLogo: true,
-						companyModified: {
+						companyStyles: {
 							select: {
-								companyModifiedName: true,
-								companyModifiedLogo: true,
+								companyStylesNameCase: true,
+								companyStylesNameFont: true,
+								companyStylesNameSpacing: true,
+								companyStylesNameAlignment: true,
+								companyStylesLogoRotation: true,
+								companyStylesLogoScale: true,
+								companyStylesLogoVertical: true,
+								companyStylesLogoHorizontal: true,
 							},
 						},
 					},
@@ -40,10 +45,16 @@ export const createUser = async (req: Request, res: Response) => {
 						select: {
 							companyName: true,
 							companyLogo: true,
-							companyModified: {
+							companyStyles: {
 								select: {
-									companyModifiedName: true,
-									companyModifiedLogo: true,
+									companyStylesNameCase: true,
+									companyStylesNameFont: true,
+									companyStylesNameSpacing: true,
+									companyStylesNameAlignment: true,
+									companyStylesLogoRotation: true,
+									companyStylesLogoScale: true,
+									companyStylesLogoVertical: true,
+									companyStylesLogoHorizontal: true,
 								},
 							},
 						},
@@ -71,7 +82,26 @@ export const getUserByEmailParams = async (req: Request, res: Response) => {
 	try {
 		const userById = await prisma.user.findUnique({
 			where: {userEmail: userEmail},
-			include: {},
+			include: {
+				company: {
+				select: {
+					companyName: true,
+					companyLogo: true,
+					companyStyles: {
+						select: {
+							companyStylesNameCase: true,
+							companyStylesNameFont: true,
+							companyStylesNameSpacing: true,
+							companyStylesNameAlignment: true,
+							companyStylesLogoRotation: true,
+							companyStylesLogoScale: true,
+							companyStylesLogoVertical: true,
+							companyStylesLogoHorizontal: true,
+						},
+					},
+				},
+			},
+		},
 		});
 
 		return res.status(200).send(userById);

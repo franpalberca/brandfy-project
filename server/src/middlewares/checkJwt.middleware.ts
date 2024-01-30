@@ -3,5 +3,6 @@ import config from "../config/config";
 
 export const checkJwt = auth({
     audience: config.auth0.audience,
-    issuerBaseURL: config.auth0.issuer
+    issuerBaseURL: config.auth0.issuer,
+    tokenSigningAlg: 'RS256',
 });

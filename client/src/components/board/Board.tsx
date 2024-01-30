@@ -193,6 +193,7 @@ const BoardStyles = styled.div`
 		justify-content: center;
 		position: relative;
         left: 28vh;
+		overflow: hidden;
 	}
 	& .sidebar {
 		grid-area: 1 / 2 / 2 / 3;

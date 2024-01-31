@@ -4,11 +4,9 @@ import morgan from 'morgan'
 import userRoutes from './routes/user.routes';
 import logoRoutes from './routes/logo.routes';
 
-
-const APP_ORIGIN = process.env.APP_ORIGIN || 'http://localhost:5173';
 const app: Express = express();
 const corsOptions = {
-	origin: APP_ORIGIN,
+	origin: '*',
 };
 app.use(cors(corsOptions));
 app.use(morgan("dev"))

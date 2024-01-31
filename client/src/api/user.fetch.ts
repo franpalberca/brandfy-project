@@ -1,26 +1,38 @@
 const urlUser = import.meta.env.VITE_API_URL_USER;
 
 interface BodyDataI {
-	name: string;
-	email: string;
-	picture: string;
+	userName: string;
+	userEmail: string;
+	userPassword: string;
 }
 
-export const createUser = async (bodyData: BodyDataI, getToken: any) => {
+interface UserDataI {
+	userEmail: string;
+	userPassword: string;
+}
+
+export const createUser = async (bodyData: BodyDataI) => {
 	try {
-		
-		const token = await getToken();
 		const response = await fetch(urlUser, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: `Bearer ${token}`,
 			},
 			body: JSON.stringify(bodyData),
 		});
 		const data = await response.json();
 		return data;
-	} catch (err) {
-		console.error(err);
+	} catch (error) {
+		console.error(error);
 	}
 };
+
+export const getUser = async (userData: UserDataI) => {
+	try {
+		const response = await fetch(urlUser)
+		const data = await response.json();
+		return data;
+	} catch (error) {
+		console.error(error);
+	}
+}

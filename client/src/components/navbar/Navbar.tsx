@@ -1,27 +1,8 @@
-import {useAuth0} from '@auth0/auth0-react';
-import {useEffect} from 'react';
 import {Button, Image} from 'react-bootstrap';
 import Navbar from 'react-bootstrap/Navbar';
 import styled from 'styled-components';
-import {createUser} from '../../api/user.fetch';
 
 const NavbarSite = () => {
-	const { loginWithRedirect, logout, user, isLoading, getAccessTokenSilently} = useAuth0();
-
-	if (isLoading) {
-		return <div>Loading...</div>;
-	}
-
-	useEffect(() => {
-		if (user) {
-			const bodyUser = {
-				name: user.name || '',
-				email: user.email || '',
-				picture: user.picture || '',
-			};
-			createUser(bodyUser, getAccessTokenSilently);
-		}
-	}, [user]);
 
 	return (
 		<NavbarSiteStyles>
@@ -38,7 +19,7 @@ const NavbarSite = () => {
 					<div className="navbar_data">
 						<Image src="https://i.postimg.cc/T2gvhsvL/brandfy-logo.png" alt="logo_brandfy" className="logo_brandfy" />
 						<p className="log_text">Please, sign in</p>
-						<Button className="log_button" onClick={() => loginWithRedirect()}>
+						<Button className="log_button" onClick={() => login()}>
 							Login
 						</Button>
 					</div>

@@ -8,7 +8,6 @@ userRoutes
     .post('/', createUser)
     .get('/:userEmail', getUserByEmailParams)
     .get('/allusers', getAllUsers)
-    // .patch('/:userId', updateUserById)
     .delete('/:userId', deleteUserById);
 
 export default userRoutes;

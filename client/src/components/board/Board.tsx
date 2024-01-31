@@ -5,7 +5,6 @@ import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import {Button} from 'react-bootstrap';
 import {createData} from '../../api/data.fetch';
-import {useAuth0} from '@auth0/auth0-react'
 
 interface LogoInfoInterface {
 	rotation: number;
@@ -78,8 +77,6 @@ const Board = ({companyName, file}: {companyName: string; file: File | null}) =>
 			console.error('Error al guardar el logo:', error);
 		}
 	};
-
-	const {user} = useAuth0();
 
 	return (
 		<BoardStyles>

@@ -1,10 +1,11 @@
-import {useState} from 'react';
+import {useContext, useState} from 'react';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import {Button} from 'react-bootstrap';
 import {createData} from '../../api/data.fetch';
+import { AuthContext } from '../../config/context/AuthContext';
 
 interface LogoInfoInterface {
 	rotation: number;
@@ -77,6 +78,8 @@ const Board = ({companyName, file}: {companyName: string; file: File | null}) =>
 			console.error('Error al guardar el logo:', error);
 		}
 	};
+
+	const { user } = useContext(AuthContext)
 
 	return (
 		<BoardStyles>

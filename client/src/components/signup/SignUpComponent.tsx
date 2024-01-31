@@ -33,7 +33,6 @@ const SignUpComponent = () => {
 			const response = await createUser(userData);
 
 			if (response && response.success) {
-				console.log('Usuario creado exitosamente');
 				setUsername('');
 				setEmail('');
 				setPassword('');

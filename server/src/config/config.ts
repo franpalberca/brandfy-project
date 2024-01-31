@@ -26,10 +26,10 @@ type Auth0Config = {
 type MongoDBConfig = { URI: string };
 
 type AWSConfig = {
-	AWS_BUCKET_NAME: string | undefined;
-	AWS_ACCESS_KEY_ID: string | undefined;
-	AWS_SECRET_ACCESS_KEY: string | undefined;
-	AWS_REGION: string | undefined;
+	BUCKET_NAME: string | undefined;
+	ACCESS_KEY_ID: string | undefined;
+	SECRET_ACCESS_KEY: string | undefined;
+	REGION: string | undefined;
 };
 
 if (process.env.NODE_ENV === 'production') {
@@ -54,10 +54,10 @@ const CONFIG: TConfig = {
             URI: process.env.MONGO_DB_URI || ''
         },
 		aws: {
-			AWS_BUCKET_NAME: process.env.BUCKET_NAME,
-			AWS_ACCESS_KEY_ID: process.env.ACCESS_KEY_ID,
-			AWS_SECRET_ACCESS_KEY: process.env.SECRET_ACCESS_KEY,
-			AWS_REGION: process.env.REGION,
+			BUCKET_NAME: process.env.BUCKET_NAME,
+			ACCESS_KEY_ID: process.env.ACCESS_KEY_ID,
+			SECRET_ACCESS_KEY: process.env.SECRET_ACCESS_KEY,
+			REGION: process.env.REGION,
 		},
 	},
 	production: {
@@ -73,10 +73,10 @@ const CONFIG: TConfig = {
             URI: process.env.MONGO_DB_URI || ''
         },
 		aws: {
-			AWS_BUCKET_NAME: process.env.BUCKET_NAME,
-			AWS_ACCESS_KEY_ID: process.env.ACCESS_KEY_ID,
-			AWS_SECRET_ACCESS_KEY: process.env.SECRET_ACCESS_KEY,
-			AWS_REGION: process.env.REGION,
+			BUCKET_NAME: process.env.BUCKET_NAME,
+			ACCESS_KEY_ID: process.env.ACCESS_KEY_ID,
+			SECRET_ACCESS_KEY: process.env.SECRET_ACCESS_KEY,
+			REGION: process.env.AWS_REGION,
 		},
 	},
 };

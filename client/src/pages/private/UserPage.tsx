@@ -7,7 +7,6 @@ import styled from 'styled-components';
 const UserPage = () => {
 	const urlData = import.meta.env.VITE_API_URL_DATA;
 	const [company, setCompany] = useState<{ companyLogo: string }[]>([]);
-	console.log(company);
 
 	useEffect(() => {
 		const getCompanyLogos = async () => {

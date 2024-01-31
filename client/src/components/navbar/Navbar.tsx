@@ -1,8 +1,20 @@
+import { useContext } from 'react';
 import {Button, Image} from 'react-bootstrap';
 import Navbar from 'react-bootstrap/Navbar';
 import styled from 'styled-components';
+import { AuthContext } from '../../config/context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { LOGINPAGE } from '../../config/routes/paths';
 
 const NavbarSite = () => {
+
+	const { user, logout } = useContext(AuthContext)
+	const navigate = useNavigate()
+
+	const handleLogout = () => {
+        logout();
+        navigate(LOGINPAGE);
+    };
 
 	return (
 		<NavbarSiteStyles>
@@ -10,8 +22,8 @@ const NavbarSite = () => {
 				{user ? (
 					<div className="navbar_data">
 						<Image src="https://i.postimg.cc/T2gvhsvL/brandfy-logo.png" alt="logo_brandfy" className="logo_brandfy" />
-						<p className="log_text">Welcome, {user.given_name}</p>
-						<Button className="log_button" onClick={() => logout()}>
+						<p className="log_text">Welcome, {user.userName}</p>
+						<Button className="log_button" onClick={handleLogout}>
 							Logout
 						</Button>
 					</div>
@@ -19,7 +31,7 @@ const NavbarSite = () => {
 					<div className="navbar_data">
 						<Image src="https://i.postimg.cc/T2gvhsvL/brandfy-logo.png" alt="logo_brandfy" className="logo_brandfy" />
 						<p className="log_text">Please, sign in</p>
-						<Button className="log_button" onClick={() => login()}>
+						<Button className="log_button" onClick={() => navigate(LOGINPAGE)}>
 							Login
 						</Button>
 					</div>

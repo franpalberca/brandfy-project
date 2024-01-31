@@ -3,7 +3,7 @@ import {Button, Form} from 'react-bootstrap';
 import styled from 'styled-components';
 import {getUser} from '../../api/user.fetch';
 import {useNavigate} from 'react-router-dom';
-import {FORMPAGE} from '../../config/routes/paths';
+import {USERPAGE} from '../../config/routes/paths';
 import { AuthContext } from '../../config/context/AuthContext';
 
 const LoginComponent = () => {
@@ -31,9 +31,8 @@ const LoginComponent = () => {
             const response = await getUser(userData);
 
 			if (response && response.user) {
-				console.log('Inicio de sesión exitoso');
 				setUser(response.user);
-                navigate(FORMPAGE);
+                navigate(USERPAGE);
 			} else {
 				console.error('Error al iniciar sesión');
 			}

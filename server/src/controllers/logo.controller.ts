@@ -1,29 +1,30 @@
-import { Request, Response } from 'express'
-import {S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand} from '@aws-sdk/client-s3';
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { Request, Response } from 'express';
+import { S3Client, PutObjectCommand, GetObjectCommand, S3ClientConfig } from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import config from '../config/config';
-import crypto from 'crypto'
+import crypto from 'crypto';
 import { prisma } from '../db/clientPrisma';
 
-const randomImageName = (bytes = 32) => crypto.randomBytes(bytes).toString('hex')
-const imageName = randomImageName()
+const awsConfig: S3ClientConfig = {
+    credentials: {
+        accessKeyId: config.aws.ACCESS_KEY_ID ?? '',
+        secretAccessKey: config.aws.SECRET_ACCESS_KEY ?? '',
+    },
+    region: config.aws.REGION,
+};
 
-const s3 = new S3Client([{
-credentials: {
-	accessKeyId: config.aws.AWS_ACCESS_KEY_ID,
-	secretAccessKey: config.aws.AWS_SECRET_ACCESS_KEY,
-},
-region: config.aws.AWS_REGION,
-}]);
+const s3 = new S3Client({ ...awsConfig });
+
+const randomImageName = (bytes = 32) => crypto.randomBytes(bytes).toString('hex');
 
 export const createImage = async (req: Request, res: Response) => {
-
-	const { companyName, rotation, scale, verticalPosition,horizontalPosition, textTransform, fontWeight, letterSpacing, alignment } = req.body
-	const params = {
-        Bucket: config.aws.AWS_BUCKET_NAME,
+    const { companyName, rotation, scale, verticalPosition, horizontalPosition, textTransform, fontWeight, letterSpacing, alignment } = req.body;
+    const imageName = randomImageName();
+    const params = {
+        Bucket: config.aws.BUCKET_NAME,
         Key: imageName,
         Body: req.file?.buffer,
-        ContentType: req.file?.mimetype
+        ContentType: req.file?.mimetype,
     };
     const command = new PutObjectCommand(params);
     await s3.send(command);
@@ -42,10 +43,10 @@ export const createImage = async (req: Request, res: Response) => {
                         companyStylesLogoRotation: parseInt(rotation),
                         companyStylesLogoScale: parseInt(scale),
                         companyStylesLogoVertical: parseInt(verticalPosition),
-                        companyStylesLogoHorizontal: parseInt(horizontalPosition)
-                    }
-                }
-            }
+                        companyStylesLogoHorizontal: parseInt(horizontalPosition),
+                    },
+                },
+            },
         });
         res.send(postLogoInDB);
     } catch (error) {
@@ -56,21 +57,35 @@ export const createImage = async (req: Request, res: Response) => {
 
 export const getCompanysInfo = async (req: Request, res: Response) => {
     try {
-        const images = await prisma.company.findMany();
+        const companies = await prisma.company.findMany({
+            include: {
+                companyStyles: true
+            }
+        });
 
-        for (const image of images) {
+        const companiesWithUrls = await Promise.all(companies.map(async company => {
+            const { companyName, companyLogo } = company;
+            if (!companyName || !companyLogo) {
+                return null;
+            }
+
             const getObjectParams = {
-                Bucket: config.aws.AWS_BUCKET_NAME,
-                Key: image.companyName,
+                Bucket: config.aws.BUCKET_NAME,
+                Key: companyLogo,
             };
+
             const command = new GetObjectCommand(getObjectParams);
             const url = await getSignedUrl(s3, command, { expiresIn: 3600 });
-            image.companyLogo = url;
-        }
+            return { ...company, companyLogoUrl: url };
+        }));
 
-        res.json(images);
+        const validCompaniesWithUrls = companiesWithUrls.filter(Boolean);
+
+        res.json(validCompaniesWithUrls);
     } catch (error) {
-        console.error("Error obteniendo datos de las compañías:", error);
-        res.status(500).json({ error: "Error obteniendo datos de las compañías" });
+        console.error('Error obteniendo datos de las compañías:', error);
+        res.status(500).json({ error: 'Error obteniendo datos de las compañías' });
     }
 };
+
+

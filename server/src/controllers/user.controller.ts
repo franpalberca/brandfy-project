@@ -4,7 +4,6 @@ import bcrypt from 'bcrypt'
 
 export const createUser = async (req: Request, res: Response) => {
 	const {userEmail, userName, userPassword} = req.body;
-	console.log(req.body);
 	
 	try {
 		if (!userName || !userEmail) {
@@ -79,7 +78,6 @@ export const createUser = async (req: Request, res: Response) => {
 
 export const loginUser = async (req: Request, res: Response) => {
     const { userEmail, userPassword } = req.body;
-	console.log(req.body)
 
     try {
         const user = await prisma.user.findUnique({

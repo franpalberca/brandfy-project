@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import {createUser} from '../../api/user.fetch';
 
 const NavbarSite = () => {
-	const { loginWithPopup, logout, user, isLoading, getAccessTokenSilently} = useAuth0();
+	const { loginWithRedirect, logout, user, isLoading, getAccessTokenSilently} = useAuth0();
 
 	if (isLoading) {
 		return <div>Loading...</div>;
@@ -29,15 +29,16 @@ const NavbarSite = () => {
 				{user ? (
 					<div className="navbar_data">
 						<Image src="https://i.postimg.cc/T2gvhsvL/brandfy-logo.png" alt="logo_brandfy" className="logo_brandfy" />
-						<p className="log_text">Welcome, {user.given_name}</p>{' '}
+						<p className="log_text">Welcome, {user.given_name}</p>
 						<Button className="log_button" onClick={() => logout()}>
 							Logout
 						</Button>
 					</div>
 				) : (
 					<div className="navbar_data">
+						<Image src="https://i.postimg.cc/T2gvhsvL/brandfy-logo.png" alt="logo_brandfy" className="logo_brandfy" />
 						<p className="log_text">Please, sign in</p>
-						<Button className="log_button" onClick={() => loginWithPopup()}>
+						<Button className="log_button" onClick={() => loginWithRedirect()}>
 							Login
 						</Button>
 					</div>

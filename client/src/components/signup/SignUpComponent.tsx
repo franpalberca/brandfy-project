@@ -1,12 +1,15 @@
 import {useState} from 'react';
 import {Button, Form} from 'react-bootstrap';
+import {useNavigate} from 'react-router-dom'
 import { createUser } from '../../api/user.fetch';
 import styled from 'styled-components';
+import { LOGINPAGE } from '../../config/routes/paths';
 
 const SignUpComponent = () => {
 	const [username, setUsername] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const navigate = useNavigate()
 
 	const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setUsername(e.target.value);
@@ -63,6 +66,7 @@ const SignUpComponent = () => {
 				</Form.Group>
 
 				<Button className='form_button' type="submit">Sign Up</Button>
+				<Button className='form_button' onClick={() => navigate(LOGINPAGE)}>Back to Login</Button>
 			</Form>
 		</FormStyles>
 	);

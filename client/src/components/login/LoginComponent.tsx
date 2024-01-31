@@ -3,7 +3,7 @@ import {Button, Form} from 'react-bootstrap';
 import styled from 'styled-components';
 import {getUser} from '../../api/user.fetch';
 import {useNavigate} from 'react-router-dom';
-import {USERPAGE} from '../../config/routes/paths';
+import {FORMPAGE, SIGNUPPAGE} from '../../config/routes/paths';
 import { AuthContext } from '../../config/context/AuthContext';
 
 const LoginComponent = () => {
@@ -32,7 +32,7 @@ const LoginComponent = () => {
 
 			if (response && response.user) {
 				setUser(response.user);
-                navigate(USERPAGE);
+                navigate(FORMPAGE);
 			} else {
 				console.error('Error al iniciar sesión');
 			}
@@ -56,6 +56,9 @@ const LoginComponent = () => {
 
 				<Button className="form_button" type="submit">
 					Log In
+				</Button>
+				<Button className="form_button" onClick={() => navigate(SIGNUPPAGE)}>
+					Register
 				</Button>
 			</Form>
 		</FormStyles>
@@ -82,6 +85,6 @@ const FormStyles = styled.div`
 		background-color: black;
 		border: black;
 		margin-top: 3vh;
-		margin-left: 30%;
+		margin-left: 20%;
 	}
 `;

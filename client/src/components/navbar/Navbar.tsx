@@ -4,7 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import styled from 'styled-components';
 import { AuthContext } from '../../config/context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { LOGINPAGE } from '../../config/routes/paths';
+import { LOGINPAGE, USERPAGE } from '../../config/routes/paths';
 
 const NavbarSite = () => {
 
@@ -22,6 +22,9 @@ const NavbarSite = () => {
 				{user ? (
 					<div className="navbar_data">
 						<Image src="https://i.postimg.cc/T2gvhsvL/brandfy-logo.png" alt="logo_brandfy" className="logo_brandfy" />
+						<Button className="log_button" onClick={() => navigate(USERPAGE)}>
+							My Profile
+						</Button>
 						<p className="log_text">Welcome, {user.userName}</p>
 						<Button className="log_button" onClick={handleLogout}>
 							Logout

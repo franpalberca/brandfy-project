@@ -1,4 +1,4 @@
-import express, {Express} from 'express';
+import express, {Express, Request, Response} from 'express';
 import cors from 'cors'
 import morgan from 'morgan'
 import errorHandler from './middlewares/error.middleware';
@@ -18,6 +18,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(errorHandler)
 app.use('/user', userRoutes);
 app.use('/data', logoRoutes);
+
+app.get("/", (req: Request, res: Response) => {
+    res.status(200).json({ message: "Welcome to the API World" });
+});
 
 
 

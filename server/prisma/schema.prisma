@@ -13,8 +13,8 @@ datasource db {
 model User {
     id            String    @id @default(auto()) @map("_id") @db.ObjectId
     userEmail     String    @unique
-    userName      String?
-    userPassword     String?
+    userName      String
+    userPassword     String
     userCreatedAt DateTime  @default(now())
     userUpdatedAt DateTime  @updatedAt
     company       Company[]

@@ -1,7 +1,6 @@
 import express, {Express, Request, Response} from 'express';
 import cors from 'cors'
 import morgan from 'morgan'
-import errorHandler from './middlewares/error.middleware';
 import userRoutes from './routes/user.routes';
 import logoRoutes from './routes/logo.routes';
 
@@ -15,7 +14,6 @@ app.use(cors(corsOptions));
 app.use(morgan("dev"))
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(errorHandler)
 app.use('/user', userRoutes);
 app.use('/data', logoRoutes);
 

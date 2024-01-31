@@ -1,19 +1,22 @@
 import {Request, Response} from 'express';
 import {prisma} from '../db/clientPrisma';
+import bcrypt from 'bcrypt'
 
 export const createUser = async (req: Request, res: Response) => {
-	const {email, name, picture} = req.body;
+	const {userEmail, userName, userPassword} = req.body;
 	console.log(req.body);
+	
 	try {
-		if (!name || !email) {
+		if (!userName || !userEmail) {
 			return res.status(400).send({
 				status: 'error',
 				error: 'Name and email are required fields.',
 			});
 		}
+		const hashedPassword = await bcrypt.hash(userPassword, 10)
 
 		const emailExist = await prisma.user.findUnique({
-			where: {userEmail: email},
+			where: {userEmail: userEmail},
 			include: {
 				company: {
 					select: {
@@ -37,9 +40,8 @@ export const createUser = async (req: Request, res: Response) => {
 		});
 
 		if (!emailExist) {
-			// if the user does not exist in the database, create a new user
 			const newUser = await prisma.user.create({
-				data: {userName: name, userEmail: email, userImage: picture},
+				data: {userName: userName, userEmail: userEmail, userPassword: hashedPassword},
 				include: {
 					company: {
 						select: {
@@ -63,7 +65,6 @@ export const createUser = async (req: Request, res: Response) => {
 			});
 			return res.status(201).send({message: 'User created successfully!', user: newUser});
 		} else {
-			// If the email already exists, return the data of the existing user
 			return res.status(200).send({
 				status: 'success',
 				message: 'User already exists.',
@@ -75,6 +76,52 @@ export const createUser = async (req: Request, res: Response) => {
 		return res.status(500).send({error: 'Internal server error'});
 	}
 };
+
+export const loginUser = async (req: Request, res: Response) => {
+    const { userEmail, userPassword } = req.body;
+	console.log(req.body)
+
+    try {
+        const user = await prisma.user.findUnique({
+            where: { userEmail: userEmail },
+            include: {
+                company: {
+                    select: {
+                        companyName: true,
+                        companyLogo: true,
+                        companyStyles: {
+                            select: {
+                                companyStylesNameCase: true,
+                                companyStylesNameFont: true,
+                                companyStylesNameSpacing: true,
+                                companyStylesNameAlignment: true,
+                                companyStylesLogoRotation: true,
+                                companyStylesLogoScale: true,
+                                companyStylesLogoVertical: true,
+                                companyStylesLogoHorizontal: true,
+                            },
+                        },
+                    },
+                },
+            },
+        });
+
+        if (!user) {
+            return res.status(404).send({ error: 'User not found' });
+        }
+
+        const passwordMatch = await bcrypt.compare(userPassword, user.userPassword);
+        if (!passwordMatch) {
+            return res.status(401).send({ error: 'Invalid password' });
+        }
+
+        return res.status(200).send({ user: user });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send({ error: 'Internal server error' });
+    }
+};
+
 
 export const getUserByEmailParams = async (req: Request, res: Response) => {
 	const {userEmail} = req.params;

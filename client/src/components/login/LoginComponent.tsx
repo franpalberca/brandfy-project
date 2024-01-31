@@ -1,14 +1,16 @@
-import {useState} from 'react';
+import {useContext, useState} from 'react';
 import {Button, Form} from 'react-bootstrap';
 import styled from 'styled-components';
 import {getUser} from '../../api/user.fetch';
 import {useNavigate} from 'react-router-dom';
 import {FORMPAGE} from '../../config/routes/paths';
+import { AuthContext } from '../../config/context/AuthContext';
 
 const LoginComponent = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const navigate = useNavigate();
+    const { setUser } = useContext(AuthContext);
 
 	const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setEmail(e.target.value);
@@ -18,20 +20,20 @@ const LoginComponent = () => {
 		setPassword(e.target.value);
 	};
 
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+	const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
 		const userData = {
 			userEmail: email,
 			userPassword: password,
 		};
-
 		try {
-			const response = await getUser(userData);
+            const response = await getUser(userData);
 
-			if (response && response.success) {
+			if (response && response.user) {
 				console.log('Inicio de sesión exitoso');
-				navigate(FORMPAGE);
+				setUser(response.user);
+                navigate(FORMPAGE);
 			} else {
 				console.error('Error al iniciar sesión');
 			}
@@ -42,7 +44,7 @@ const LoginComponent = () => {
 
 	return (
 		<FormStyles>
-			<Form className="form_global" onSubmit={handleSubmit}>
+			<Form className="form_global" onSubmit={handleLogin}>
 				<Form.Group controlId="email">
 					<Form.Label>Email:</Form.Label>
 					<Form.Control type="email" placeholder="Enter your email" value={email} onChange={handleEmailChange} required />

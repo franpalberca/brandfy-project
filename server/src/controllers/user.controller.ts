@@ -112,7 +112,10 @@ export const loginUser = async (req: Request, res: Response) => {
         if (!passwordMatch) {
             return res.status(401).send({ error: 'Invalid password' });
         }
-
+		req.setTimeout(12000, () => {
+			res.status(408);
+			res.send("Request timeout")
+		})
         return res.status(200).send({ user: user });
     } catch (error) {
         console.error(error);

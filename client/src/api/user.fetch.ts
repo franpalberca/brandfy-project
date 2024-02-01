@@ -15,6 +15,7 @@ export const createUser = async (bodyData: BodyDataI) => {
 	try {
 		const response = await fetch(urlUser, {
 			method: 'POST',
+			mode: 'cors',
 			headers: {
 				'Content-Type': 'application/json',
 			},
@@ -31,6 +32,7 @@ export const getUser = async (userData: UserDataI) => {
 	try {
 		const response = await fetch(`${urlUser}/login`, {
 			method: 'POST',
+			mode: 'cors',
 			headers: {
 				'Content-Type': 'application/json',
 			},

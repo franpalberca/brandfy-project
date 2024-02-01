@@ -22,7 +22,7 @@ const NavbarSite = () => {
 				{user ? (
 					<div className="navbar_data">
 						<Image src="https://i.postimg.cc/T2gvhsvL/brandfy-logo.png" alt="logo_brandfy" className="logo_brandfy" />
-						<Button className="log_button" onClick={() => navigate(USERPAGE)}>
+						<Button className="profile_button" onClick={() => navigate(USERPAGE)}>
 							My Profile
 						</Button>
 						<p className="log_text">Welcome, {user.userName}</p>
@@ -50,7 +50,7 @@ const NavbarSiteStyles = styled.div`
 	& .navbar_data {
 		width: 100%;
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: 5vh 1fr repeat(2, 8vh);
 		grid-template-rows: 1fr;
 		grid-column-gap: 0px;
 		grid-row-gap: 0px;
@@ -68,10 +68,20 @@ const NavbarSiteStyles = styled.div`
 	& .log_button {
 		grid-area: 1 / 3 / 2 / 4;
 		width: 15vh;
-		height: 8vh;
+		height: 12vh;
 		display: flex;
 		position: relative;
-		left: 55vh;
+		left: 0vh;
+		background-color: black;
+		border-color: black;
+	}
+	& .profile_button{
+		grid-area: 1 / 4 / 2 / 5;
+		width: 15vh;
+		height: 12vh;
+		display: flex;
+		position: relative;
+		left: -30vh;
 		background-color: black;
 		border-color: black;
 	}

@@ -5,10 +5,11 @@ import userRoutes from './routes/user.routes';
 import logoRoutes from './routes/logo.routes';
 
 const app: Express = express();
-const corsOptions = {
-	origin: '*',
-};
-app.use(cors(corsOptions));
+// const corsOptions = {
+// 	origin: '*',
+// };
+// app.use(cors(corsOptions));
+app.use(cors({origin: '*'}))
 app.use(morgan("dev"))
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
